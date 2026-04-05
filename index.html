@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Aditz — Neo Brutalist Bio Link</title>
+  <!-- Google Fonts & Bootstrap Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700;400i&family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="icon" type="image/x-icon" href="https://upload.shizukuuu.cloud/get/YJ1gFI.ico">
+  <style>
+    /* RESET & GLOBAL */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-page: #f5efe3;
+      --bg-card: #fefaf2;
+      --bg-card-alt: #e6ddcf;
+      --ink: #12100e;
+      --ink-muted: #4a4238;
+      --ink-ghost: rgba(18, 16, 14, 0.35);
+      --yellow: #ffd100;
+      --pink: #ff3b6f;
+      --blue: #1f2aff;
+      --green: #00d26a;
+      --orange: #ff6b2b;
+      --red: #e60026;
+      --border-color: #12100e;
+      --border: 3px solid var(--border-color);
+      --shadow: 6px 6px 0 var(--border-color);
+      --shadow-lg: 10px 10px 0 var(--border-color);
+      --shadow-sm: 4px 4px 0 var(--border-color);
+      --dot-rgba: rgba(18, 16, 14, 0.06);
+      --marquee-bg: #12100e;
+      --marquee-text: var(--yellow);
+      --deco-bg: #12100e;
+      --deco-text: #fefaf2;
+      --deco-quote-col: var(--yellow);
+      --chip-bg: #fefaf2;
+      --chip-text: #12100e;
+      --chip-shadow: 4px 4px 0 #12100e;
+      --chip-hover-sh: 7px 7px 0 #12100e;
+      --feat-hdr-bg: #12100e;
+      --feat-hdr-text: var(--yellow);
+      --feat-body-bg: #fefaf2;
+      --feat-dot-col: var(--yellow);
+      --profile-card-bg: var(--yellow);
+      --section-op: 0.55;
+      --tag-bg: var(--yellow);
+      --tag-border: #12100e;
+      --tag-text: #12100e;
+      --toggle-bg: var(--pink);
+      --toggle-text: #fff;
+      --glow: 0 0 0 2px var(--border-color), 0 0 0 5px rgba(255, 209, 0, 0.3);
+      --transition-default: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.dark {
+      --bg-page: #0c0b09;
+      --bg-card: #1e1c18;
+      --bg-card-alt: #2a2722;
+      --ink: #f2ebdb;
+      --ink-muted: #cbc2ae;
+      --ink-ghost: rgba(242, 235, 219, 0.35);
+      --yellow: #ffe566;
+      --pink: #ff5c8a;
+      --blue: #5b6aff;
+      --green: #2eff9a;
+      --orange: #ff8c4a;
+      --red: #ff4d6d;
+      --border-color: #ffe566;
+      --border: 3px solid var(--border-color);
+      --shadow: 6px 6px 0 var(--border-color);
+      --shadow-lg: 10px 10px 0 var(--border-color);
+      --shadow-sm: 4px 4px 0 var(--border-color);
+      --dot-rgba: rgba(255, 229, 102, 0.05);
+      --marquee-bg: #ffe566;
+      --marquee-text: #0c0b09;
+      --deco-bg: #ffe566;
+      --deco-text: #0c0b09;
+      --deco-quote-col: #0c0b09;
+      --chip-bg: #1e1c18;
+      --chip-text: #f2ebdb;
+      --chip-shadow: 4px 4px 0 #ffe566;
+      --chip-hover-sh: 7px 7px 0 #ffe566;
+      --feat-hdr-bg: #ffe566;
+      --feat-hdr-text: #0c0b09;
+      --feat-body-bg: #1e1c18;
+      --feat-dot-col: #0c0b09;
+      --profile-card-bg: #1e1c18;
+      --tag-bg: #2a2722;
+      --tag-border: #ffe566;
+      --tag-text: #ffe566;
+      --toggle-bg: #ffe566;
+      --toggle-text: #0c0b09;
+      --glow: 0 0 0 2px #ffe566, 0 0 0 5px rgba(255, 229, 102, 0.3);
+    }
+
+    body {
+      background-color: var(--bg-page);
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 39px, var(--dot-rgba) 39px, var(--dot-rgba) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, var(--dot-rgba) 39px, var(--dot-rgba) 40px);
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      transition: background-color 0.3s ease, color 0.2s ease;
+      position: relative;
+      cursor: default;
+    }
+
+    /* noise texture lebih halus */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.6;
+      z-index: 9999;
+    }
+
+    /* custom scroll */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-page);
+      border-left: var(--border);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--yellow);
+      border: 2px solid var(--border-color);
+    }
+
+    /* theme toggle premium */
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--toggle-bg);
+      border: var(--border);
+      box-shadow: var(--shadow-sm);
+      color: var(--toggle-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 22px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.25s;
+      border-radius: 0px;
+    }
+    .theme-toggle:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 7px 7px 0 var(--border-color);
+    }
+    .theme-toggle:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--border-color);
+    }
+
+    /* marquee bar upgrade */
+    .marquee-bar {
+      background: var(--marquee-bg);
+      color: var(--marquee-text);
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: var(--border);
+      transition: all 0.25s;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 22s linear infinite;
+      gap: 48px;
+    }
+    .marquee-track span {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .marquee-track span::before {
+      content: "⚡";
+      font-size: 14px;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* container lebih breathable */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px 90px;
+    }
+
+    /* profile card with floating effect */
+    .profile-card {
+      background: var(--profile-card-bg);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 32px 28px 28px;
+      position: relative;
+      margin-bottom: 32px;
+      transition: transform 0.2s ease, box-shadow 0.2s, background 0.25s;
+      will-change: transform;
+    }
+    .profile-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 14px 14px 0 var(--border-color);
+    }
+
+    .profile-badge {
+      position: absolute;
+      top: -16px;
+      left: 28px;
+      background: var(--pink);
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 5px 14px;
+      border: var(--border);
+      text-transform: uppercase;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .profile-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border: var(--border);
+      box-shadow: 5px 5px 0 var(--border-color);
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: bold;
+      color: white;
+      transition: all 0.2s;
+    }
+    .avatar span {
+      text-shadow: 2px 2px 0 var(--border-color);
+    }
+    .avatar:hover {
+      transform: scale(0.98);
+    }
+    .status-dot {
+      position: absolute;
+      bottom: 4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      background: var(--green);
+      border: 2.5px solid var(--border-color);
+      border-radius: 50%;
+      animation: pulseGlow 1.8s infinite;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(0, 210, 106, 0.5);}
+      70% { box-shadow: 0 0 0 6px rgba(0, 210, 106, 0);}
+      100% { box-shadow: 0 0 0 0 rgba(0, 210, 106, 0);}
+    }
+    .profile-info {
+      flex: 1;
+    }
+    .profile-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 46px;
+      line-height: 1;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .profile-handle {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0.7;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .profile-bio {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.45;
+      background: rgba(0,0,0,0.03);
+      display: inline-block;
+      padding: 4px 8px;
+      border-left: 4px solid var(--yellow);
+    }
+    body.dark .profile-bio {
+      background: rgba(255,229,102,0.08);
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: var(--border);
+      margin-top: 24px;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 14px 8px;
+      border-right: var(--border);
+      transition: background 0.1s;
+    }
+    .stat-item:last-child {
+      border-right: none;
+    }
+    .stat-item:hover {
+      background: var(--ink-ghost);
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+
+    /* section label dengan garis */
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      opacity: var(--section-op);
+      margin-bottom: 14px;
+      margin-top: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: currentColor;
+      opacity: 0.35;
+    }
+
+    /* link cards premium */
+    .links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 24px;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--bg-card);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .link-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--border-color);
+    }
+    .link-card:active {
+      transform: translate(1px, 1px);
+      box-shadow: 4px 4px 0 var(--border-color);
+    }
+    /* warna aksen custom untuk card tertentu tetap stylish */
+    .link-card:nth-child(2) { background: var(--blue); color: #fff; border-color: var(--border-color);}
+    .link-card:nth-child(3) { background: var(--pink); color: #fff; }
+    .link-card:nth-child(4) { background: var(--green); color: #12100e; }
+    .link-card:nth-child(5) { background: var(--orange); color: #fff; }
+    body.dark .link-card:nth-child(4) { color: #12100e; }
+    .link-icon {
+      width: 48px;
+      height: 48px;
+      border: 2.5px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.12);
+      transition: all 0.2s;
+    }
+    .link-card:hover .link-icon {
+      transform: scale(0.96);
+    }
+    .link-text {
+      flex: 1;
+    }
+    .link-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+    .link-desc {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.75;
+      font-family: 'Space Mono', monospace;
+      margin-top: 4px;
+    }
+    .link-arrow {
+      font-size: 22px;
+      font-weight: 700;
+      opacity: 0.6;
+      transition: transform 0.2s ease, opacity 0.2s;
+    }
+    .link-card:hover .link-arrow {
+      transform: translateX(6px);
+      opacity: 1;
+    }
+    .link-badge {
+      position: absolute;
+      top: -12px;
+      right: 18px;
+      background: var(--yellow);
+      color: #12100e;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border: 2px solid var(--border-color);
+    }
+
+    /* featured block upgrade */
+    .featured-block {
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .featured-block:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 14px 14px 0 var(--border-color);
+    }
+    .featured-header {
+      background: var(--feat-hdr-bg);
+      color: var(--feat-hdr-text);
+      padding: 12px 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 3px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .featured-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--feat-dot-col);
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0%,100%{ opacity: 1; transform: scale(1);}
+      50%{ opacity: 0.3; transform: scale(0.8);}
+    }
+    .featured-body {
+      background: var(--feat-body-bg);
+      padding: 26px 24px;
+    }
+    .featured-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .featured-desc {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      padding: 5px 12px;
+      border: 2px solid var(--tag-border);
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      text-transform: uppercase;
+      transition: all 0.1s;
+    }
+    .tag.blue { background: var(--blue); color: #fff; border-color: var(--blue);}
+    .tag.pink { background: var(--pink); color: #fff; border-color: var(--pink);}
+    .tag.green { background: var(--green); color: #12100e; border-color: var(--green);}
+
+    /* deco block dengan quote */
+    .deco-block {
+      position: relative;
+      margin: 28px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 24px;
+      border: var(--border);
+      background: var(--deco-bg);
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+    .deco-block:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--border-color);
+    }
+    .deco-quote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--deco-quote-col);
+      flex-shrink: 0;
+    }
+    .deco-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--deco-text);
+      line-height: 1.5;
+      font-style: normal;
+    }
+
+    /* social chips upgrade */
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 6px 0 8px;
+    }
+    .social-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border: var(--border);
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      box-shadow: var(--chip-shadow);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .social-chip:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--chip-hover-sh);
+    }
+    .social-chip:active {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--border-color);
+    }
+    .social-chip i {
+      font-size: 18px;
+    }
+
+    /* footer */
+    .footer {
+      margin-top: 58px;
+      text-align: center;
+      border-top: var(--border);
+      padding-top: 28px;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 4px;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .footer-brand:hover {
+      opacity: 0.8;
+    }
+
+    /* ripple effect */
+    .ripple {
+      position: fixed;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, var(--yellow) 10%, transparent 80%);
+      pointer-events: none;
+      animation: rippleOut 0.5s ease-out forwards;
+      z-index: 10000;
+      mix-blend-mode: hard-light;
+    }
+    @keyframes rippleOut {
+      from { transform: scale(0); opacity: 0.8; }
+      to { transform: scale(6); opacity: 0; }
+    }
+
+    /* toast premium */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--deco-bg);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 12px 28px;
+      border: 2px solid var(--yellow);
+      box-shadow: 5px 5px 0 var(--yellow);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+      z-index: 10001;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+    }
+    body.dark .toast {
+      color: #0c0b09;
+      background: var(--yellow);
+      border-color: #0c0b09;
+      box-shadow: 5px 5px 0 #0c0b09;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 550px) {
+      .container { padding: 20px 16px 60px; }
+      .profile-name { font-size: 36px; }
+      .avatar { width: 80px; height: 80px; font-size: 34px; }
+      .profile-inner { gap: 16px; }
+      .stat-num { font-size: 26px; }
+      .link-card { padding: 14px 18px; }
+      .link-icon { width: 42px; height: 42px; font-size: 20px; }
+      .toast { white-space: normal; text-align: center; max-width: 80vw; font-size: 12px; }
+      .theme-toggle { top: 16px; right: 16px; width: 42px; height: 42px; }
+      .featured-title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="marquee-bar">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>★ ADITZ OFFICIAL BIO LINK</span>
+      <span>★ CONNECT WITH ADITZ</span>
+      <span>★ WHATSAPP BOT GATEWAY</span>
+      <span>★ ALL STATUS: ONLINE</span>
+      <span>★ ADITZ.CLOUD</span>
+      <span>★ #NEOBRUTALISM</span>
+      <span>★ ADITZ OFFICIAL BIO LINK</span>
+      <span>★ CONNECT WITH ADITZ</span>
+      <span>★ WHATSAPP BOT GATEWAY</span>
+      <span>★ ALL STATUS: ONLINE</span>
+      <span>★ ADITZ.CLOUD</span>
+    </div>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Dark/Light mode">
+    <span id="themeIcon">☀️</span>
+  </button>
+  <div class="container">
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <div class="profile-badge">✦ VERIFIED</div>
+      <div class="profile-inner">
+        <div class="avatar-wrap">
+          <div class="avatar">
+            <span>AD</span>
+          </div>
+          <div class="status-dot" title="Online · aktif"></div>
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">Aditz</div>
+          <div class="profile-handle"><i class="bi bi-at"></i> aditz · Creator</div>
+          <div class="profile-bio">Explore all my official links, social media, and latest WhatsApp bot projects in one place.</div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item"><span class="stat-num">2.5K</span><span class="stat-label">Followers</span></div>
+        <div class="stat-item"><span class="stat-num">45+</span><span class="stat-label">Projects</span></div>
+        <div class="stat-item"><span class="stat-num">2yrs</span><span class="stat-label">Experience</span></div>
+      </div>
+    </div>
+
+    <!-- quote block -->
+    <div class="deco-block">
+      <div class="deco-quote">“</div>
+      <div class="deco-text">Stay connected with Aditz — WhatsApp Bot, updates, and community all in one bio link.</div>
+    </div>
+
+    <div class="section-label">— find me on</div>
+    <div class="social-row">
+      <a class="social-chip" href="https://instagram.com/Adityz.aja" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i> @Adityz.aja</a>
+      <a class="social-chip" href="https://tiktok.com/@adityagugua" target="_blank" rel="noopener noreferrer"><i class="bi bi-tiktok"></i> @adityagugua</a>
+      <a class="social-chip" href="https://wa.me/6283115105784" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+    </div>
+
+    <div class="section-label">— essential links</div>
+    <div class="links-list">
+      <a class="link-card" href="https://chat.whatsapp.com/FOdFwbFyRQmEWEZE2JGJp7?mode=gi_t" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon"><i class="bi bi-people-fill"></i></div>
+        <div class="link-text"><span class="link-title">Group Bot WhatsApp</span><span class="link-desc">Diskusi & bantuan bot</span></div>
+        <div class="link-arrow">→</div>
+      </a>
+      <a class="link-card" href="https://wa.me/6283115105784" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon"><i class="bi bi-whatsapp"></i></div>
+        <div class="link-text"><span class="link-title">Personal WhatsApp</span><span class="link-desc">+62 831-1510-5784</span></div>
+        <div class="link-arrow">→</div>
+      </a>
+      <a class="link-card" href="https://instagram.com/Adityz.aja" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon"><i class="bi bi-instagram"></i></div>
+        <div class="link-text"><span class="link-title">Instagram</span><span class="link-desc">@Adityz.aja</span></div>
+        <div class="link-arrow">→</div>
+      </a>
+      <a class="link-card" href="https://tiktok.com/@adityagugua" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon"><i class="bi bi-tiktok"></i></div>
+        <div class="link-text"><span class="link-title">TikTok</span><span class="link-desc">@adityagugua</span></div>
+        <div class="link-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="section-label">— featured project</div>
+    <div class="featured-block">
+      <div class="featured-header"><div class="featured-dot"></div> LATEST WORK — INTEGRITAS</div>
+      <div class="featured-body">
+        <div class="featured-title">INTEGRITAS BOT WHATSAPP</div>
+        <div class="featured-desc">WhatsApp Bot gateway system designed for high performance, security, and integrity in handling group communications.</div>
+        <div class="tag-row">
+          <span class="tag blue">Baileys</span>
+          <span class="tag pink">Node.js</span>
+          <span class="tag green">API</span>
+          <span class="tag">Production</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-brand">⚡ ADITZ.CLOUD</div>
+      <div class="footer-sub" style="font-family: 'Space Mono'; font-size: 9px; margin-top: 8px;">neo brutalist bio link — all systems online</div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      // Toast notification
+      function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._tid);
+        toast._tid = setTimeout(() => toast.classList.remove('show'), 2300);
+      }
+
+      // Ripple effect modern
+      document.addEventListener('click', (e) => {
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        ripple.style.left = (e.clientX - 12) + 'px';
+        ripple.style.top = (e.clientY - 12) + 'px';
+        document.body.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 500);
+      });
+
+      // counter animation with IntersectionObserver
+      const statNumbers = document.querySelectorAll('.stat-num');
+      const statsRaw = [2500, 45, 2];
+      const suffixes = ['', '+', 'yrs'];
+      let counted = false;
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !counted) {
+          counted = true;
+          statNumbers.forEach((el, idx) => {
+            let target = statsRaw[idx];
+            let suffix = suffixes[idx];
+            let current = 0;
+            let step = Math.ceil(target / 45);
+            let timer = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              let displayVal = current;
+              if (target >= 1000 && idx === 0) {
+                displayVal = (current / 1000).toFixed(1);
+                el.textContent = displayVal.replace(/\.0$/, '') + 'K';
+              } else {
+                el.textContent = Math.floor(displayVal) + (suffix ? suffix : '');
+              }
+              if (current === target) {
+                if (idx === 0) el.textContent = (target / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                else el.textContent = target + suffix;
+              }
+            }, 20);
+          });
+          counterObserver.disconnect();
+        }
+      }, { threshold: 0.5 });
+      if (statNumbers.length) counterObserver.observe(statNumbers[0]);
+
+      // marquee hover pause
+      const marqueeTrack = document.getElementById('marqueeTrack');
+      const marqueeBar = document.querySelector('.marquee-bar');
+      if (marqueeBar && marqueeTrack) {
+        marqueeBar.addEventListener('mouseenter', () => marqueeTrack.style.animationPlayState = 'paused');
+        marqueeBar.addEventListener('mouseleave', () => marqueeTrack.style.animationPlayState = 'running');
+      }
+
+      // Theme system
+      const btn = document.getElementById('themeToggle');
+      const iconSpan = document.getElementById('themeIcon');
+      let isDark = localStorage.getItem('theme') === 'dark';
+
+      function setTheme(dark) {
+        document.body.classList.toggle('dark', dark);
+        iconSpan.textContent = dark ? '🌙' : '☀️';
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+      }
+      setTheme(isDark);
+      btn.addEventListener('click', () => {
+        isDark = !isDark;
+        setTheme(isDark);
+        showToast(isDark ? '🌙 Dark mode · brutalist glow' : '☀️ Light mode · fresh energy');
+      });
+
+      // accessibility for keyboard
+      document.querySelectorAll('.link-card, .social-chip').forEach(el => {
+        el.setAttribute('tabindex', '0');
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      // additional smooth hover on profile card
+      const profileCard = document.querySelector('.profile-card');
+      if(profileCard) {
+        profileCard.addEventListener('mouseenter', () => profileCard.style.transform = 'translate(-2px, -2px)');
+        profileCard.addEventListener('mouseleave', () => profileCard.style.transform = 'translate(0px, 0px)');
+      }
+
+      // final tiny console greet
+      console.log('🔥 Neo Brutalist Bio Link — Aditz Edition');
+    })();
+  </script>
+</body>
+</html>
